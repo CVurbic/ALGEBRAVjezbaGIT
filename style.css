@@ -1,0 +1,9 @@
+.even-row>* {
+    background-color: #000 !important;
+    color: white !important;
+}
+
+
+.card {
+    margin-bottom: 20px;
+}
