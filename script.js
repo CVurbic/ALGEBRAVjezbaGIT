@@ -21,6 +21,7 @@ $(document).ready(function () {
                 // Slice the array to limit the number of Pokemon
                 const limitedPokemons = pokemons.slice(0, limit);
                 console.log(pokemons)
+                console.log(limitedPokemons)
                 // Compile Handlebars template
                 var source = $("#pokemonTemplate").html();
                 var template = Handlebars.compile(source);
@@ -53,28 +54,50 @@ $(document).ready(function () {
         // Populate table rows with pokemon data
         pokemons.forEach(function (pokemon, index) {
             // Check if the Pokemon name starts with 'P'
-            if (pokemon.name.charAt(0) === 'P' || pokemon.name.charAt(0) === 'p') {
-                removedPokemonsCount++; // Increment the count of removed pokemons
-            } else {
-                // Add row for non-'P' Pokemon
-                var tr = $('<tr>').appendTo(tbody);
-                $('<td>').text(index).appendTo(tr);
-                $('<td>').append($('<a>').attr('href', pokemon.url).text(pokemon.name)).appendTo(tr);
-            }
-        });
 
+            var tr = $('<tr>').appendTo(tbody);
+            $('<td>').text(index).appendTo(tr);
+            $('<td>').append($('<a>').attr('href', pokemon.url).text(pokemon.name)).appendTo(tr);
+
+        });
+        let okemons = pokemons.filter(pokemon => pokemon.name.charAt(0) != "p")
+        console.log(okemons)
         // Apply zebra striping to the table rows
         tbody.children('tr:even').addClass('even-row'); // Apply class to even rows
 
         // Append the table to the body
         $('#table-container').append(table);
 
-        // Create and append a div to display the count of removed pokemons
-        var removedPokemonDiv = $('<div>').text('Removed Pokemons: ' + removedPokemonsCount);
-        $('#table-container').append(removedPokemonDiv);
+        setTimeout(() => {
+            $('.table').empty()
+            console.log($('#table-container'))
+            var thead = $('<thead>').appendTo(table);
+            var tbody = $('<tbody>').appendTo(table);
+            var trHead = $('<tr>').appendTo(thead);
+            $('<th>').text('Redni broj').appendTo(trHead);
+            $('<th>').text('Naziv').appendTo(trHead);
+            okemons.forEach(function (pokemon, index) {
+                
+                    // Add row for non-'P' Pokemon
+                    var tr = $('<tr>').appendTo(tbody);
+                    $('<td>').text(index).appendTo(tr);
+                    $('<td>').append($('<a>').attr('href', pokemon.url).text(pokemon.name)).appendTo(tr);
+                
+            });
+
+            // Apply zebra striping to the table rows
+            tbody.children('tr:even').addClass('even-row'); // Apply class to even rows
+
+            // Append the table to the body
+            $('#table-container').append(table);
+
+            removedPokemonsCount = pokemons.length - okemons.length
+            // Create and append a div to display the count of removed pokemons
+            var removedPokemonDiv = $('<div>').text('Removed Pokemons: ' + removedPokemonsCount);
+            $('#table-container').append(removedPokemonDiv);
+        }, 2000);
     }
 
-
     // Fetch 20 yellow Pokemons
-    fetchPokemonsByColor('yellow', 20);
+    fetchPokemonsByColor('blue', 30);
 });
