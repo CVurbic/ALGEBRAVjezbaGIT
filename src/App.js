@@ -4,6 +4,8 @@ import './App.css';
 import A from "./components/A"
 import B from "./components/B"
 import C from './components/C';
+import State from './components/state';
+
 
 class App extends React.Component {
   render(){
@@ -16,6 +18,7 @@ class App extends React.Component {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <State/>
         <A korisnici ={korisnici}/>
         <B korisnici ={korisnici}/>
         <C
